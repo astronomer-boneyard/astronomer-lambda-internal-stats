@@ -1,24 +1,26 @@
 {
-  "name": "s3-kinesis-lambda-starter",
+  "name": "astronomer-lambda-internal-stats",
   "version": "1.0.0",
-  "description": "A starter module for an AWS Lambda that can handle S3 PUT notifications and Kinesis stream events.",
-  "main": "MyLambda.js",
+  "description": "",
+  "main": "dist/MyLambda.js",
   "scripts": {
-    "test": "mocha"
+    "clean": "rm -rf dist",
+    "build": "npm run clean && babel src --out-dir .",
+    "test": "npm run build && mocha --compilers js:babel/register",
+    "deploy": "npm run build && make update"
   },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/nicksergeant/s3-kinesis-lambda-starter.git"
-  },
-  "author": "Localytics",
+  "author": "astronomer",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/nicksergeant/s3-kinesis-lambda-starter/issues"
-  },
-  "homepage": "https://github.com/nicksergeant/s3-kinesis-lambda-starter",
   "dependencies": {
     "async": "^0.9.0",
-    "aws-sdk": "^2.1.18"
+    "aws-sdk": "^2.1.18",
+    "babel": "^5.8.21",
+    "co": "^4.6.0",
+    "co-mocha": "^1.1.2",
+    "config": "^1.15.0",
+    "lodash": "^3.10.1",
+    "mocha": "^2.2.5",
+    "pg-promise": "^1.8.5"
   },
   "devDependencies": {
     "chai": "^2.1.2",

@@ -1,17 +1,17 @@
 delete:
 	aws lambda delete-function \
 		--region us-east-1 \
-		--function-name s3-kinesis-lambda-starter
+		--function-name astronomer-lambda-internal-stats
 
 get:
 	aws lambda get-function \
 		--region us-east-1 \
-		--function-name s3-kinesis-lambda-starter
+		--function-name astronomer-lambda-internal-stats
 
 invoke:
 	aws lambda invoke-async \
 		--region us-east-1 \
-		--function-name s3-kinesis-lambda-starter \
+		--function-name astronomer-lambda-internal-stats \
 		--invoke-args $(payload)
 
 list:
@@ -24,10 +24,10 @@ list-event-sources:
 
 update:
 	@npm install
-	@zip -r ./MyLambda.zip * -x *.json *.zip test.js
+	@zip -r ./MyLambda.zip * -x *.zip test
 	aws lambda update-function-code \
 		--region us-east-1 \
-		--function-name s3-kinesis-lambda-starter \
+		--function-name astronomer-lambda-internal-stats \
 		--zip-file fileb://MyLambda.zip
 
 upload:
@@ -35,11 +35,11 @@ upload:
 	@zip -r ./MyLambda.zip * -x *.json *.zip test.js
 	aws lambda create-function \
 		--region us-east-1 \
-		--function-name s3-kinesis-lambda-starter \
+		--function-name astronomer-lambda-internal-stats \
 		--zip-file fileb://MyLambda.zip \
-		--handler MyLambda.handler \
+		--handler dist/MyLambda.handler \
 		--runtime nodejs \
-		--role arn:aws:iam::$(shell echo $(AWS_ACCOUNT_ID)):role/lambda_basic_execution \
+		--role arn:aws:iam::213824691356:role/lambda_s3_exec_role \
 
 test:
 	@npm test
